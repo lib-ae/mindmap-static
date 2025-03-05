@@ -1,0 +1,214 @@
+/* 思维导图节点样式 */
+.node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.node rect,
+.node ellipse {
+    fill: var(--surface);
+    stroke: var(--border);
+    stroke-width: 2px;
+    rx: 8px;
+    ry: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.node text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    fill: var(--text-color);
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.node:hover rect,
+.node:hover ellipse {
+    stroke: var(--primary-color);
+    filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.2));
+}
+
+/* 连接线样式 */
+.link {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    stroke: var(--primary-color);
+    stroke-width: 3px;
+}
+
+/* 编辑模式样式 */
+.editing rect,
+.editing ellipse {
+    stroke: var(--primary-color);
+    stroke-dasharray: 5,5;
+    animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -10;
+    }
+}
+
+/* 节点类型样式 */
+.root-node rect,
+.root-node ellipse {
+    fill: var(--primary-color);
+}
+
+.root-node text {
+    fill: white;
+    font-weight: 600;
+}
+
+.child-node rect,
+.child-node ellipse {
+    fill: var(--surface);
+}
+
+.leaf-node rect,
+.leaf-node ellipse {
+    fill: var(--background);
+}
+
+/* 拖拽样式 */
+.dragging {
+    opacity: 0.7;
+    cursor: grabbing;
+}
+
+.drag-over rect,
+.drag-over ellipse {
+    stroke: var(--primary-color);
+    stroke-width: 3px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        filter: drop-shadow(0 0 0 rgba(33, 150, 243, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(33, 150, 243, 0.3));
+    }
+    100% {
+        filter: drop-shadow(0 0 0 rgba(33, 150, 243, 0));
+    }
+}
+
+/* 缩放控件样式 */
+.zoom-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.zoom-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--background);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.zoom-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* 工具提示样式 */
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* 上下文菜单样式 */
+.context-menu {
+    position: fixed;
+    background-color: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.context-menu-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+}
+
+.context-menu-item:hover {
+    background-color: var(--background);
+    color: var(--primary-color);
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: var(--border);
+    margin: 0.5rem 0;
+}
+
+/* 动画效果 */
+.node-enter {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.node-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.node-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.node-exit-active {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .zoom-controls {
+        bottom: 5rem;
+        right: 1rem;
+    }
+
+    .context-menu {
+        max-width: calc(100vw - 2rem);
+    }
+} 
